@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from datetime import datetime
+from django.utils import timezone
+
 
 
 class User(AbstractUser):
@@ -13,7 +14,7 @@ class Profile(models.Model):
 class Post(models.Model):
     content = models.CharField(max_length=255)
     user = models.ForeignKey('User', on_delete=models.CASCADE, related_name='author')
-    date = models.DateTimeField(default=datetime.now())
+    date = models.DateTimeField(default=timezone.now)
     liked = models.ManyToManyField('User', default = None, blank = True, related_name='post_likes')
 
     @property
